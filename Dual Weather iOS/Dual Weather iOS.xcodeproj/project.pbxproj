@@ -6,6 +6,10 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		71F3561D2D44106100476216 /* JWTKit in Frameworks */ = {isa = PBXBuildFile; productRef = 71F3561C2D44106100476216 /* JWTKit */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXContainerItemProxy section */
 		71AEA3712D41633700941570 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -52,6 +56,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				71F3561D2D44106100476216 /* JWTKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -112,6 +117,7 @@
 			);
 			name = "Dual Weather iOS";
 			packageProductDependencies = (
+				71F3561C2D44106100476216 /* JWTKit */,
 			);
 			productName = "Dual Weather iOS";
 			productReference = 71AEA35F2D41633600941570 /* Dual Weather iOS.app */;
@@ -195,6 +201,9 @@
 			);
 			mainGroup = 71AEA3562D41633600941570;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				71F3561B2D44106100476216 /* XCRemoteSwiftPackageReference "jwt-kit" */,
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 71AEA3602D41633600941570 /* Products */;
 			projectDirPath = "";
@@ -593,6 +602,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		71F3561B2D44106100476216 /* XCRemoteSwiftPackageReference "jwt-kit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/vapor/jwt-kit.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.1.1;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		71F3561C2D44106100476216 /* JWTKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 71F3561B2D44106100476216 /* XCRemoteSwiftPackageReference "jwt-kit" */;
+			productName = JWTKit;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 71AEA3572D41633600941570 /* Project object */;
 }
