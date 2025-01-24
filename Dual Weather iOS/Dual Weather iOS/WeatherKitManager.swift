@@ -32,26 +32,28 @@ struct WeatherKitAuth {
 }
 
 struct JWTClaims: JWTPayload {
+    func verify(using algorithm: some JWTKit.JWTAlgorithm) async throws {}
+    
     let iss: String // Team ID
     let iat: Date   // Issued At
     let exp: Date   // Expiration
     let sub: String // Service ID
 }
 
-@MainActor
-func fetchWeather() async {
-    do {
-        let auth = WeatherKitAuth()
-        let jwt = try auth.generateJWT()
-
-        let weatherService = WeatherService(jwt: jwt)
-        let location = CLLocation(latitude: 37.7749, longitude: -122.4194) // Example: San Francisco
-        let weather = try await weatherService.weather(for: location)
-
-        print("Temperature: \(weather.currentWeather.temperature)")
-        print("Condition: \(weather.currentWeather.condition.description)")
-    } catch {
-        print("Error fetching weather: \(error)")
-    }
-}
+//@MainActor
+//func fetchWeather() async {
+//    do {
+//        let auth = WeatherKitAuth()
+//        let jwt = try auth.generateJWT()
+//
+//        let weatherService = WeatherService(jwt: jwt)
+//        let location = CLLocation(latitude: 37.7749, longitude: -122.4194) // Example: San Francisco
+//        let weather = try await weatherService.weather(for: location)
+//
+//        print("Temperature: \(weather.currentWeather.temperature)")
+//        print("Condition: \(weather.currentWeather.condition.description)")
+//    } catch {
+//        print("Error fetching weather: \(error)")
+//    }
+//}
 
