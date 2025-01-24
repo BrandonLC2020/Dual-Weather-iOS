@@ -7,7 +7,7 @@
 
 import Foundation
 import WeatherKit
-import JWTKit // Add a JWT library like JWTKit via Swift Package Manager
+import JWTKit
 
 struct WeatherKitAuth {
     private let keyID = "YOUR_KEY_ID"
