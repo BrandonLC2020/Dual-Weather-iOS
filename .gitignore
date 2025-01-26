@@ -63,3 +63,4 @@ fastlane/test_output
 Dual Weather iOS/Apple Auth Key V52XCTXQTY.p8
 Dual Weather iOS/Dual Weather iOS/WeatherKitKey
 *.p8
+Dual Weather iOS/Dual Weather iOS/Config.xcconfig
