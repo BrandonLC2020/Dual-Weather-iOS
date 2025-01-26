@@ -9,14 +9,15 @@ import SwiftUI
 @preconcurrency import WeatherKit
 import CoreLocation
 
-// WeatherViewModel.swift
 class WeatherViewModel: NSObject, ObservableObject, CLLocationManagerDelegate {
     @Published var currentWeather: Weather?
+    @Published var currentLocation: String?
     @Published var locationError: String?
     @Published var isLocationAccessGranted: Bool = false
 
     private let weatherService = WeatherService()
     private let locationManager = CLLocationManager()
+    private let geocoder = CLGeocoder()
 
     override init() {
         super.init()
@@ -24,29 +25,39 @@ class WeatherViewModel: NSObject, ObservableObject, CLLocationManagerDelegate {
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
     }
 
-    // This function requests the user's location permission
     func requestLocation() {
         locationManager.requestWhenInUseAuthorization()
     }
 
     func startUpdatingLocation() {
         if CLLocationManager.locationServicesEnabled() {
-            // Request location authorization first
             locationManager.requestWhenInUseAuthorization()
         } else {
-            // Location services are disabled, handle the error on the main thread
             DispatchQueue.main.async {
                 self.locationError = "Location services are disabled."
             }
         }
     }
+    
+    // Fetch CLLocation from location name
+    func fetchCoordinates(from address: String, completion: @escaping (Result<CLLocation, Error>) -> Void) {
+        geocoder.geocodeAddressString(address) { placemarks, error in
+            if let error = error {
+                completion(.failure(error))
+                return
+            }
+            if let placemark = placemarks?.first, let location = placemark.location {
+                completion(.success(location))
+            } else {
+                completion(.failure(NSError(domain: "GeocodingError", code: 0, userInfo: [NSLocalizedDescriptionKey: "Location not found"])))
+            }
+        }
+    }
 
     func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
-        // Check if permission is granted and start location updates
         DispatchQueue.main.async {
             switch manager.authorizationStatus {
             case .authorizedWhenInUse, .authorizedAlways:
-                // Start updating location only after authorization is granted
                 self.locationManager.startUpdatingLocation()
             case .denied, .restricted:
                 self.locationError = "Location access denied. Please enable location access in Settings."
@@ -57,35 +68,48 @@ class WeatherViewModel: NSObject, ObservableObject, CLLocationManagerDelegate {
             }
         }
     }
-    
-    // CLLocationManagerDelegate method to handle location updates
+
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         if let location = locations.last {
             Task {
                 await fetchWeather(for: location)
+                await fetchLocationName(for: location)
             }
-            locationManager.stopUpdatingLocation()  // Stop updating location once we have it
+            locationManager.stopUpdatingLocation()
         }
     }
 
-    // Handle errors when failing to get the location
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
         locationError = "Failed to find location: \(error.localizedDescription)"
     }
 
-    // Fetch weather data for the provided location
     func fetchWeather(for location: CLLocation) async {
         do {
             let weather = try await weatherService.weather(for: location)
-            
-            // Dispatch the UI updates to the main thread only for the @Published properties
             await MainActor.run {
                 self.currentWeather = weather
             }
         } catch {
-            // Dispatch error updates to the main thread
             await MainActor.run {
                 self.locationError = "Failed to fetch weather: \(error.localizedDescription)"
+            }
+        }
+    }
+
+    func fetchLocationName(for location: CLLocation) async {
+        do {
+            let placemarks = try await geocoder.reverseGeocodeLocation(location)
+            if let placemark = placemarks.first {
+                let locationName = [placemark.locality, placemark.administrativeArea]
+                    .compactMap { $0 }
+                    .joined(separator: ", ")
+                await MainActor.run {
+                    self.currentLocation = locationName
+                }
+            }
+        } catch {
+            await MainActor.run {
+                self.locationError = "Failed to fetch location name: \(error.localizedDescription)"
             }
         }
     }
@@ -95,19 +119,23 @@ struct HomeView: View {
     @StateObject private var viewModel = WeatherViewModel()
 
     var body: some View {
-            NavigationView {
-                if let weather = viewModel.currentWeather {
-                    Text(weather.currentWeather.condition.description)
-                } else {
-                    ProgressView() // Display progress indicator while fetching weather
-                        .progressViewStyle(.circular) // Choose a progress view style (optional)
-                }
+        NavigationView {
+            if let location = viewModel.currentLocation {
+                WeatherDetailsView(locationName: location)
+            } else if let error = viewModel.locationError {
+                Text(error)
+                    .foregroundColor(.red)
+                    .multilineTextAlignment(.center)
+                    .padding()
+            } else {
+                ProgressView()
+                    .progressViewStyle(.circular)
             }
-            .onAppear {
-                viewModel.requestLocation() // Request location when view appears
-            }
-            .navigationTitle("Current Weather")
         }
+        .onAppear {
+            viewModel.requestLocation()
+        }
+    }
 }
 
 #Preview {
