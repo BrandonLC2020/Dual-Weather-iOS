@@ -16,11 +16,11 @@ struct TabUIView: View {
                     Image(systemName: "house.fill")
                     Text("Home")
                 }
-                .navigationTitle("Top Songs")
+                .navigationTitle("Home")
             SavedLocationsView()
                 .tabItem {
                     Image(systemName: "bookmark.fill")
-                    Text("Saved Locations")
+                    Text("Saved")
                 }
                 .navigationTitle("Saved")
             SettingsView()

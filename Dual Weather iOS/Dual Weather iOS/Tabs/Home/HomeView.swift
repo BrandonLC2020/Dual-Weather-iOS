@@ -95,20 +95,19 @@ struct HomeView: View {
     @StateObject private var viewModel = WeatherViewModel()
 
     var body: some View {
-        VStack {
-            if let weather = viewModel.currentWeather {
-                Text("Temperature: \(weather.currentWeather.temperature.value, specifier: "%.1f")°")
-            } else if let error = viewModel.locationError {
-                Text("Error: \(error)")
-                    .foregroundColor(.red)
-            } else {
-                Text("Fetching weather...")
+            NavigationView {
+                if let weather = viewModel.currentWeather {
+                    Text(weather.currentWeather.condition.description)
+                } else {
+                    ProgressView() // Display progress indicator while fetching weather
+                        .progressViewStyle(.circular) // Choose a progress view style (optional)
+                }
             }
+            .onAppear {
+                viewModel.requestLocation() // Request location when view appears
+            }
+            .navigationTitle("Current Weather")
         }
-        .onAppear {
-            viewModel.requestLocation() // Request location when view appears
-        }
-    }
 }
 
 #Preview {
