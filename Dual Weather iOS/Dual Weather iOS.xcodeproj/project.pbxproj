@@ -6,10 +6,6 @@
 	objectVersion = 77;
 	objects = {
 
-/* Begin PBXBuildFile section */
-		71F3561D2D44106100476216 /* JWTKit in Frameworks */ = {isa = PBXBuildFile; productRef = 71F3561C2D44106100476216 /* JWTKit */; };
-/* End PBXBuildFile section */
-
 /* Begin PBXContainerItemProxy section */
 		71AEA3712D41633700941570 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -56,7 +52,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				71F3561D2D44106100476216 /* JWTKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -117,7 +112,6 @@
 			);
 			name = "Dual Weather iOS";
 			packageProductDependencies = (
-				71F3561C2D44106100476216 /* JWTKit */,
 			);
 			productName = "Dual Weather iOS";
 			productReference = 71AEA35F2D41633600941570 /* Dual Weather iOS.app */;
@@ -202,7 +196,6 @@
 			mainGroup = 71AEA3562D41633600941570;
 			minimizedProjectReferenceProxies = 1;
 			packageReferences = (
-				71F3561B2D44106100476216 /* XCRemoteSwiftPackageReference "jwt-kit" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 71AEA3602D41633600941570 /* Products */;
@@ -330,6 +323,10 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "Dual-Weather-iOS-Info.plist";
+				INFOPLIST_OUTPUT_FORMAT = binary;
+				INFOPLIST_PREPROCESS = YES;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
@@ -385,6 +382,10 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "Dual-Weather-iOS-Info.plist";
+				INFOPLIST_OUTPUT_FORMAT = binary;
+				INFOPLIST_PREPROCESS = YES;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
@@ -406,7 +407,10 @@
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.weather";
+				INFOPLIST_KEY_NSLocationAlwaysUsageDescription = "We need your location to provide weather updates even when the app is in the background.";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "We need your location to provide weather updates.";
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphoneos*]" = YES;
@@ -449,7 +453,10 @@
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.weather";
+				INFOPLIST_KEY_NSLocationAlwaysUsageDescription = "We need your location to provide weather updates even when the app is in the background.";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "We need your location to provide weather updates.";
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphoneos*]" = YES;
@@ -608,25 +615,6 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
-
-/* Begin XCRemoteSwiftPackageReference section */
-		71F3561B2D44106100476216 /* XCRemoteSwiftPackageReference "jwt-kit" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/vapor/jwt-kit.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 5.1.1;
-			};
-		};
-/* End XCRemoteSwiftPackageReference section */
-
-/* Begin XCSwiftPackageProductDependency section */
-		71F3561C2D44106100476216 /* JWTKit */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 71F3561B2D44106100476216 /* XCRemoteSwiftPackageReference "jwt-kit" */;
-			productName = JWTKit;
-		};
-/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 71AEA3572D41633600941570 /* Project object */;
 }
