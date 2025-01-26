@@ -121,7 +121,9 @@ struct HomeView: View {
     var body: some View {
         NavigationView {
             if let location = viewModel.currentLocation {
-                WeatherDetailsView(locationName: location)
+                VStack{
+                    WeatherDetailsView(locationName: location)
+                }
             } else if let error = viewModel.locationError {
                 Text(error)
                     .foregroundColor(.red)
