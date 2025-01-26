@@ -10,15 +10,19 @@ import WeatherKit
 import JWTKit
 
 struct WeatherKitAuth {
-    private let keyID = "YOUR_KEY_ID"
-    private let teamID = "YOUR_TEAM_ID"
+    private let keyID = "V52XCTXQTY"
+    private let teamID = "YNT6PGUJ53"
     private let serviceID = "com.apple.weatherkit"
-    private let privateKeyPath = URL(fileURLWithPath: "~/keys/WeatherKitKey.p8").standardizedFileURL
+    private let privateKeyPath = URL(fileURLWithPath: "/Users/brandonlamer-connolly/code/Dual-Weather-iOS/Dual Weather iOS/Dual Weather iOS")
 
     func generateJWT() throws -> String {
-        let privateKeyData = try Data(contentsOf: privateKeyPath)
-        let signer = try JWTSigner.es256(key: .private(pem: privateKeyData))
+        // Load the private key as a String
+        let privateKeyString = try String(contentsOf: privateKeyPath, encoding: .utf8)
+        
+        // Initialize the JWTSigner with the private key
+        let signer = try JWTSigner.es256(key: .private(pem: privateKeyString))
 
+        // Create the JWT claims
         let claims = JWTClaims(
             iss: teamID,
             iat: Date(),
@@ -26,6 +30,7 @@ struct WeatherKitAuth {
             sub: serviceID
         )
 
+        // Sign and return the JWT
         let jwt = try signer.sign(claims)
         return jwt
     }
