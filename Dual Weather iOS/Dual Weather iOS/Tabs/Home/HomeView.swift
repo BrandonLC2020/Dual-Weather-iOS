@@ -25,7 +25,7 @@ class WeatherViewModel: ObservableObject {
     }
 }
 
-struct HomeView: View {
+struct HomeView : View {
     @StateObject private var viewModel = WeatherViewModel()
 
     var body: some View {

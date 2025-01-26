@@ -17,6 +17,18 @@ struct TabUIView: View {
                     Text("Home")
                 }
                 .navigationTitle("Top Songs")
+            SavedLocationsView()
+                .tabItem {
+                    Image(systemName: "bookmark.fill")
+                    Text("Saved Locations")
+                }
+                .navigationTitle("Saved")
+            SettingsView()
+                .tabItem {
+                    Image(systemName: "gearshape.fill")
+                    Text("Settings")
+                }
+                .navigationTitle("Settings")
         }
     }
 }
