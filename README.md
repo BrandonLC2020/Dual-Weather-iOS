@@ -1,7 +1,7 @@
 # Dual Weather
 
 ## Overview
-WeatherApp is a simple iOS application built using Swift and WeatherKit. It provides real-time weather updates for your current location, displaying essential weather data in both imperial and metric measurements.
+Dual Weather is a simple iOS application built using Swift and WeatherKit. It provides real-time weather updates for your current location, displaying essential weather data in both imperial and metric measurements.
 
 ## Features
 - Displays temperature in Fahrenheit and Celsius
