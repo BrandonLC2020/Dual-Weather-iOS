@@ -12,6 +12,12 @@ import WeatherKit
 struct WeatherDetailsView: View {
     private var locationName: String
     @StateObject private var weatherViewModel = WeatherViewModel()
+    
+    let columns = [
+        GridItem(.flexible(), spacing: 20, alignment: .trailing),
+        GridItem(.flexible(), spacing: 20, alignment: .center),
+        GridItem(.flexible(), spacing: 20, alignment: .leading),
+    ]
 
     // Initialize with locationName
     init(locationName: String) {
@@ -25,23 +31,61 @@ struct WeatherDetailsView: View {
                     Text("Weather for \(locationName)")
                         .font(.title)
                         .padding()
+                    Image(systemName: WeatherConditionsDictionary[weatherViewModel.currentWeather!.currentWeather.condition]![weatherViewModel.currentWeather!.currentWeather.isDaylight]!)
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                        .frame(width: 200)
+                        .padding()
                     
-                    // Display temperature and additional details
-                    Text("Temperature: \(currentWeather.currentWeather.temperature.description)")
+                    Text("Conditions: \(currentWeather.currentWeather.condition.description)")
                         .font(.headline)
                         .padding()
                     
-                    Text("Condition: \(currentWeather.currentWeather.condition.description)")
-                        .font(.subheadline)
+                    LazyVGrid(columns: columns, spacing: 25) {
+                        Text("\(Int(currentWeather.currentWeather.temperature.value.rounded()))°C")
+                            .font(.subheadline)
+          
+                        
+                        Text("Temperature")
+                            .font(.headline)
+
+                        
+                        Text("\(Int(currentWeather.currentWeather.temperature.converted(to: .fahrenheit).value.rounded()))°F")
+                            .font(.subheadline)
+             
+                        
+                        Text("\(Int(currentWeather.currentWeather.wind.speed.value.rounded())) km/h")
+                            .font(.subheadline)
+                        
+                        Text("Wind")
+                            .font(.headline)
+  
+                        Text("\(Int(currentWeather.currentWeather.wind.speed.converted(to: .milesPerHour).value.rounded())) mph")
+                            .font(.subheadline)
+                        
+                        
+                        Text("\(Int(currentWeather.currentWeather.apparentTemperature.value.rounded()))°C")
+                            .font(.subheadline)
+          
+                        
+                        Text("Feels Like Temperature")
+                            .font(.headline)
+                        
+                        Text("\(Int(currentWeather.currentWeather.apparentTemperature.converted(to: .fahrenheit).value.rounded()))°F")
+                            .font(.subheadline)
+             
+                    }
+                    .padding()
+                    
+                    Text("Humidity: \(currentWeather.currentWeather.humidity.formatted(.percent))")
+                        .font(.headline)
                         .padding()
                     
-                    Text("Wind: \(currentWeather.currentWeather.wind.speed.description)")
-                        .font(.subheadline)
+                    Text("UV Index: \(currentWeather.currentWeather.uvIndex.value)")
+                        .font(.headline)
                         .padding()
                     
-                    Text("Humidity: \(currentWeather.currentWeather.humidity.description)")
-                        .font(.subheadline)
-                        .padding()
+                    
                 } else if let error = weatherViewModel.locationError {
                     Text("Error: \(error)")
                         .foregroundColor(.red)
