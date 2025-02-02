@@ -6,6 +6,13 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		7158E8DD2D5011500056395A /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = 7158E8DC2D5011500056395A /* FirebaseAnalytics */; };
+		7158E8DF2D5011500056395A /* FirebaseCore in Frameworks */ = {isa = PBXBuildFile; productRef = 7158E8DE2D5011500056395A /* FirebaseCore */; };
+		7158E8E12D5011500056395A /* FirebaseDatabase in Frameworks */ = {isa = PBXBuildFile; productRef = 7158E8E02D5011500056395A /* FirebaseDatabase */; };
+		7158E8E32D5011500056395A /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 7158E8E22D5011500056395A /* FirebaseFirestore */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXContainerItemProxy section */
 		71AEA3712D41633700941570 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -52,6 +59,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7158E8E12D5011500056395A /* FirebaseDatabase in Frameworks */,
+				7158E8E32D5011500056395A /* FirebaseFirestore in Frameworks */,
+				7158E8DF2D5011500056395A /* FirebaseCore in Frameworks */,
+				7158E8DD2D5011500056395A /* FirebaseAnalytics in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -112,6 +123,10 @@
 			);
 			name = "Dual Weather iOS";
 			packageProductDependencies = (
+				7158E8DC2D5011500056395A /* FirebaseAnalytics */,
+				7158E8DE2D5011500056395A /* FirebaseCore */,
+				7158E8E02D5011500056395A /* FirebaseDatabase */,
+				7158E8E22D5011500056395A /* FirebaseFirestore */,
 			);
 			productName = "Dual Weather iOS";
 			productReference = 71AEA35F2D41633600941570 /* Dual Weather iOS.app */;
@@ -196,6 +211,7 @@
 			mainGroup = 71AEA3562D41633600941570;
 			minimizedProjectReferenceProxies = 1;
 			packageReferences = (
+				7158E8DB2D5011500056395A /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 71AEA3602D41633600941570 /* Products */;
@@ -619,6 +635,40 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		7158E8DB2D5011500056395A /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 11.7.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		7158E8DC2D5011500056395A /* FirebaseAnalytics */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 7158E8DB2D5011500056395A /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAnalytics;
+		};
+		7158E8DE2D5011500056395A /* FirebaseCore */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 7158E8DB2D5011500056395A /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseCore;
+		};
+		7158E8E02D5011500056395A /* FirebaseDatabase */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 7158E8DB2D5011500056395A /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseDatabase;
+		};
+		7158E8E22D5011500056395A /* FirebaseFirestore */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 7158E8DB2D5011500056395A /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseFirestore;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 71AEA3572D41633600941570 /* Project object */;
 }
