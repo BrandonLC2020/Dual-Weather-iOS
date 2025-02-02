@@ -16,8 +16,8 @@ struct SavedLocationsView: View {
     @State private var errorMessage: String?      // Error message state
 
     let columns = [
-        GridItem(.flexible(), spacing: 16),
-        GridItem(.flexible(), spacing: 16)
+        GridItem(.flexible(), spacing: 10),
+        GridItem(.flexible(), spacing: 10)
     ]
 
     var body: some View {
@@ -31,7 +31,7 @@ struct SavedLocationsView: View {
                         .foregroundColor(.red)
                         .padding()
                 } else {
-                    LazyVGrid(columns: columns, spacing: 16) {
+                    LazyVGrid(columns: columns, spacing: 10) {
                         ForEach(locations, id: \.city) { location in
                             LocationCard(location: location)
                                 .padding()

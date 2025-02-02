@@ -12,16 +12,18 @@ struct LocationCard: View {
     var location: Location
     @State private var coordinate: CLLocationCoordinate2D? // To store fetched coordinates
     @State private var errorMessage: String? // To handle errors
+    
+    let maxHeight: CGFloat = 180
+    let maxWidth: CGFloat = 150
+
 
     var body: some View {
         VStack {
-            Text(location.locationString())
-                .font(.headline)
-                .padding(.bottom, 5)
-                .lineLimit(2)
-            
+            Text(location.city)
+                .lineLimit(1)
+                .padding(.top, 10)
             if let coordinate = coordinate {
-                MapThumbnailView(coordinate: coordinate, size: CGSize(width: 150, height: 150))
+                MapThumbnailView(coordinate: coordinate, size: CGSize(width: 150, height: 150)).padding(.all, 10)
             } else if let errorMessage = errorMessage {
                 Text("Error: \(errorMessage)")
                     .foregroundColor(.red)
@@ -29,10 +31,11 @@ struct LocationCard: View {
                     .padding()
             } else {
                 ProgressView("Loading...")
-                    .frame(width: 150, height: 150) // Placeholder while loading coordinates
+                    .frame(width: 130, height: 130) // Placeholder while loading coordinates
             }
         }
         .padding()
+        .frame(maxWidth: maxWidth, maxHeight: maxHeight)
         .onAppear {
             if let lat = location.latitude, let lon = location.longitude {
                 coordinate = CLLocationCoordinate2D(latitude: lat, longitude: lon)
@@ -48,7 +51,6 @@ struct LocationCard: View {
                 switch result {
                 case .success(let fetchedCoordinate):
                     coordinate = fetchedCoordinate
-                    print(coordinate)
                     errorMessage = nil
                 case .failure(let error):
                     errorMessage = error.localizedDescription
@@ -58,6 +60,6 @@ struct LocationCard: View {
     }
 }
 
-//#Preview {
-//    LocationCard(location: )
-//}
+#Preview {
+    LocationCard(location: Location(city: "West Lafayette", state: "IN"))
+}
