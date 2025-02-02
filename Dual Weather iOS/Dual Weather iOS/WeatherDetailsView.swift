@@ -27,7 +27,7 @@ struct WeatherDetailsView: View {
     var body: some View {
         VStack {
             if let currentWeather = weatherViewModel.currentWeather {
-                Text("Weather for \(locationName)")
+                Text("\(locationName)")
                     .font(.title)
                     .padding()
                 Image(systemName: WeatherConditionsDictionary[weatherViewModel.currentWeather!.currentWeather.condition]![weatherViewModel.currentWeather!.currentWeather.isDaylight]!)
