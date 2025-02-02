@@ -34,7 +34,11 @@ struct LocationCard: View {
         }
         .padding()
         .onAppear {
-            fetchCoordinates()
+            if let lat = location.latitude, let lon = location.longitude {
+                coordinate = CLLocationCoordinate2D(latitude: lat, longitude: lon)
+            } else {
+                fetchCoordinates()
+            }
         }
     }
     
@@ -44,6 +48,7 @@ struct LocationCard: View {
                 switch result {
                 case .success(let fetchedCoordinate):
                     coordinate = fetchedCoordinate
+                    print(coordinate)
                     errorMessage = nil
                 case .failure(let error):
                     errorMessage = error.localizedDescription
