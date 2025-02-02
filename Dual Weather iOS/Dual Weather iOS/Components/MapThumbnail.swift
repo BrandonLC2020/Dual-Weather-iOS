@@ -5,68 +5,50 @@
 //  Created by Brandon Lamer-Connolly on 2/2/25.
 //
 
-import SwiftUI
 import MapKit
-
-class MapThumbnailGenerator {
-    static func generateThumbnail(for coordinate: CLLocationCoordinate2D, size: CGSize, completion: @escaping (UIImage?) -> Void) {
-        let options = MKMapSnapshotter.Options()
-        options.region = MKCoordinateRegion(center: coordinate, latitudinalMeters: 500, longitudinalMeters: 500)
-        options.size = size
-        options.mapType = .standard
-
-        let snapshotter = MKMapSnapshotter(options: options)
-        snapshotter.start { snapshot, error in
-            guard let snapshot = snapshot else {
-                completion(nil)
-                return
-            }
-
-            UIGraphicsBeginImageContextWithOptions(size, true, 0)
-            snapshot.image.draw(at: .zero)
-
-            // Draw pin
-            let pinView = MKMarkerAnnotationView(annotation: nil, reuseIdentifier: nil)
-            let pinImage = pinView.image
-            let point = snapshot.point(for: coordinate)
-
-            if let pinImage = pinImage {
-                let pinCenterOffset = CGPoint(x: pinImage.size.width / 2, y: pinImage.size.height)
-                let pinOrigin = CGPoint(x: point.x - pinCenterOffset.x, y: point.y - pinCenterOffset.y)
-                pinImage.draw(at: pinOrigin)
-            }
-
-            let finalImage = UIGraphicsGetImageFromCurrentImageContext()
-            UIGraphicsEndImageContext()
-            completion(finalImage)
-        }
-    }
-}
+import SwiftUI
 
 struct MapThumbnailView: View {
-    let coordinate: CLLocationCoordinate2D
-    let size: CGSize
+    var coordinate: CLLocationCoordinate2D
+    var size: CGSize
 
-    @State private var thumbnail: UIImage? = nil
+    @State private var snapshotImage: UIImage?
 
     var body: some View {
         Group {
-            if let image = thumbnail {
-                Image(uiImage: image)
+            if let snapshotImage = snapshotImage {
+                Image(uiImage: snapshotImage)
                     .resizable()
-                    .scaledToFit()
-                    .clipShape(RoundedRectangle(cornerRadius: 10))
-                    .shadow(radius: 3)
-            } else {
-                ProgressView() // Show a loading indicator while generating the map
+                    .scaledToFill()
                     .frame(width: size.width, height: size.height)
+                    .clipShape(RoundedRectangle(cornerRadius: 8))
+            } else {
+                ProgressView()
+                    .frame(width: size.width, height: size.height)
+                    .background(Color.gray.opacity(0.3))
+                    .clipShape(RoundedRectangle(cornerRadius: 8))
+                    .onAppear {
+                        generateSnapshot()
+                    }
             }
         }
-        .onAppear {
-            MapThumbnailGenerator.generateThumbnail(for: coordinate, size: size) { image in
-                DispatchQueue.main.async {
-                    self.thumbnail = image
-                }
+    }
+
+    private func generateSnapshot() {
+        let options = MKMapSnapshotter.Options()
+        options.region = MKCoordinateRegion(
+            center: coordinate,
+            span: MKCoordinateSpan(latitudeDelta: 0.1, longitudeDelta: 0.1)
+        )
+        options.size = size
+        options.scale = UIScreen.main.scale
+
+        let snapshotter = MKMapSnapshotter(options: options)
+        snapshotter.start { snapshot, error in
+            if let snapshot = snapshot {
+                self.snapshotImage = snapshot.image
+            } else {
+                print("Error generating map snapshot: \(String(describing: error))")
             }
         }
     }

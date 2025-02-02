@@ -22,4 +22,8 @@ struct Location: Codable {
         self.city = city
         self.state = state
     }
+    
+    func locationString() -> String {
+        return "\(city), \(state)"
+    }
 }
