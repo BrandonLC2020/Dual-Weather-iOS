@@ -120,18 +120,28 @@ struct HomeView: View {
 
     var body: some View {
         NavigationView {
-            if let location = viewModel.currentLocation {
-                VStack{
-                    WeatherDetailsView(locationName: location)
+            ScrollView {
+                VStack {
+                    if let location = viewModel.currentLocation {
+                        WeatherDetailsView(locationName: location)
+                    } else if let error = viewModel.locationError {
+                        Text(error)
+                            .foregroundColor(.red)
+                            .multilineTextAlignment(.center)
+                            .padding()
+                    } else {
+                        ProgressView()
+                            .progressViewStyle(.circular)
+                    }
                 }
-            } else if let error = viewModel.locationError {
-                Text(error)
-                    .foregroundColor(.red)
-                    .multilineTextAlignment(.center)
-                    .padding()
-            } else {
-                ProgressView()
-                    .progressViewStyle(.circular)
+                .safeAreaInset(edge: .top) {
+                    EmptyView()
+                }
+            }
+            .navigationTitle("Current Weather")
+            .navigationBarTitleDisplayMode(.automatic)
+            .refreshable {
+                viewModel.requestLocation()
             }
         }
         .onAppear {

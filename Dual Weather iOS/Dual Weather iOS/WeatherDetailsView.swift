@@ -25,78 +25,75 @@ struct WeatherDetailsView: View {
     }
 
     var body: some View {
-        NavigationView {
-            VStack {
-                if let currentWeather = weatherViewModel.currentWeather {
-                    Text("Weather for \(locationName)")
-                        .font(.title)
-                        .padding()
-                    Image(systemName: WeatherConditionsDictionary[weatherViewModel.currentWeather!.currentWeather.condition]![weatherViewModel.currentWeather!.currentWeather.isDaylight]!)
-                        .resizable()
-                        .aspectRatio(contentMode: .fit)
-                        .frame(width: 200)
-                        .padding()
-                    
-                    Text("Conditions: \(currentWeather.currentWeather.condition.description)")
-                        .font(.headline)
-                        .padding()
-                    
-                    LazyVGrid(columns: columns, spacing: 25) {
-                        Text("\(Int(currentWeather.currentWeather.temperature.value.rounded()))°C")
-                            .font(.subheadline)
-          
-                        
-                        Text("Temperature")
-                            .font(.headline)
-
-                        
-                        Text("\(Int(currentWeather.currentWeather.temperature.converted(to: .fahrenheit).value.rounded()))°F")
-                            .font(.subheadline)
-             
-                        
-                        Text("\(Int(currentWeather.currentWeather.wind.speed.value.rounded())) km/h")
-                            .font(.subheadline)
-                        
-                        Text("Wind")
-                            .font(.headline)
-  
-                        Text("\(Int(currentWeather.currentWeather.wind.speed.converted(to: .milesPerHour).value.rounded())) mph")
-                            .font(.subheadline)
-                        
-                        
-                        Text("\(Int(currentWeather.currentWeather.apparentTemperature.value.rounded()))°C")
-                            .font(.subheadline)
-          
-                        
-                        Text("Feels Like Temperature")
-                            .font(.headline)
-                        
-                        Text("\(Int(currentWeather.currentWeather.apparentTemperature.converted(to: .fahrenheit).value.rounded()))°F")
-                            .font(.subheadline)
-             
-                    }
+        VStack {
+            if let currentWeather = weatherViewModel.currentWeather {
+                Text("Weather for \(locationName)")
+                    .font(.title)
                     .padding()
+                Image(systemName: WeatherConditionsDictionary[weatherViewModel.currentWeather!.currentWeather.condition]![weatherViewModel.currentWeather!.currentWeather.isDaylight]!)
+                    .resizable()
+                    .aspectRatio(contentMode: .fit)
+                    .frame(width: 200)
+                    .padding()
+                
+                Text("Conditions: \(currentWeather.currentWeather.condition.description)")
+                    .font(.headline)
+                    .padding()
+                
+                LazyVGrid(columns: columns, spacing: 25) {
+                    Text("\(Int(currentWeather.currentWeather.temperature.value.rounded()))°C")
+                        .font(.subheadline)
+      
                     
-                    Text("Humidity: \(currentWeather.currentWeather.humidity.formatted(.percent))")
+                    Text("Temperature")
                         .font(.headline)
-                        .padding()
+
                     
-                    Text("UV Index: \(currentWeather.currentWeather.uvIndex.value)")
+                    Text("\(Int(currentWeather.currentWeather.temperature.converted(to: .fahrenheit).value.rounded()))°F")
+                        .font(.subheadline)
+         
+                    
+                    Text("\(Int(currentWeather.currentWeather.wind.speed.value.rounded())) km/h")
+                        .font(.subheadline)
+                    
+                    Text("Wind")
                         .font(.headline)
-                        .padding()
+
+                    Text("\(Int(currentWeather.currentWeather.wind.speed.converted(to: .milesPerHour).value.rounded())) mph")
+                        .font(.subheadline)
                     
                     
-                } else if let error = weatherViewModel.locationError {
-                    Text("Error: \(error)")
-                        .foregroundColor(.red)
-                        .padding()
-                } else {
-                    Text("Fetching weather for \(locationName)...")
-                        .padding()
+                    Text("\(Int(currentWeather.currentWeather.apparentTemperature.value.rounded()))°C")
+                        .font(.subheadline)
+      
+                    
+                    Text("Feels Like Temperature")
+                        .font(.headline)
+                    
+                    Text("\(Int(currentWeather.currentWeather.apparentTemperature.converted(to: .fahrenheit).value.rounded()))°F")
+                        .font(.subheadline)
+         
                 }
+                .padding()
+                
+                Text("Humidity: \(currentWeather.currentWeather.humidity.formatted(.percent))")
+                    .font(.headline)
+                    .padding()
+                
+                Text("UV Index: \(currentWeather.currentWeather.uvIndex.value)")
+                    .font(.headline)
+                    .padding()
+                
+                
+            } else if let error = weatherViewModel.locationError {
+                Text("Error: \(error)")
+                    .foregroundColor(.red)
+                    .padding()
+            } else {
+                Text("Fetching weather for \(locationName)...")
+                    .padding()
             }
         }
-        .navigationTitle("Current Weather")
         .onAppear {
             fetchWeatherForLocation()
         }
