@@ -7,14 +7,19 @@
 
 import SwiftUI
 import MapKit
+import FirebaseFirestore
 
 struct SearchCard: View {
     var location: Location
     @State private var coordinate: CLLocationCoordinate2D? // To store fetched coordinates
     @State private var errorMessage: String? // To handle errors
+    @State private var isSaving: Bool = false // Loading state for Firestore operation
+        
     
     let maxHeight: CGFloat = 100
     let maxWidth: CGFloat = 600
+
+    let db = Firestore.firestore() // Firestore instance
 
 
     var body: some View {
@@ -34,6 +39,13 @@ struct SearchCard: View {
             Text(location.locationString())
                 .lineLimit(1)
             Spacer()
+            Button(action: addToFirestore) {
+                Image(systemName: isSaving ? "checkmark.circle.fill" : "plus.circle")
+                    .resizable()
+                    .frame(width: 24, height: 24)
+                    .foregroundColor(.blue)
+            }
+            .disabled(isSaving) // Disable while saving
 
         }
         .padding()
@@ -60,8 +72,31 @@ struct SearchCard: View {
             }
         }
     }
+    
+    private func addToFirestore() {
+        guard let coordinate = coordinate else { return }
+        
+        let locationData: [String: Any] = [
+            "city": location.city,
+            "state": location.state,
+            "latitude": coordinate.latitude,
+            "longitude": coordinate.longitude,
+        ]
+        
+        isSaving = true
+        
+        db.collection("locations").addDocument(data: locationData) { error in
+            DispatchQueue.main.async {
+                if let error = error {
+                    errorMessage = error.localizedDescription
+                } else {
+                    isSaving = false
+                }
+            }
+        }
+    }
 }
 
 #Preview {
-    SearchCard(location: Location(city: "West Lafayette", state: "IN"))
+    SearchCard(location: Location(city: "West Lafayette", state: "Indiana"))
 }
