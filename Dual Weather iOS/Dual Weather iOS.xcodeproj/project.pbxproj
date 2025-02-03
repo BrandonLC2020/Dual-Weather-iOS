@@ -421,7 +421,7 @@
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "Dual\\ Weather\\ iOS/Assets.xcassets Dual\\ Weather\\ iOS/Preview\\ Content";
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = YNT6PGUJ53;
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = YNT6PGUJ53;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
@@ -449,7 +449,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "dualweatherios.Dual-Weather-iOS";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "Dual-Weather-iOS-Profile-1";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "Dual-Weather-iOS-Profile";
 				SDKROOT = auto;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx xros xrsimulator";
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -467,10 +467,12 @@
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CODE_SIGN_ENTITLEMENTS = "Dual Weather iOS/Dual_Weather_iOS.entitlements";
 				CODE_SIGN_IDENTITY = "Apple Development";
-				CODE_SIGN_STYLE = Automatic;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "Dual\\ Weather\\ iOS/Assets.xcassets Dual\\ Weather\\ iOS/Preview\\ Content";
 				DEVELOPMENT_TEAM = YNT6PGUJ53;
+				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = YNT6PGUJ53;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -497,6 +499,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "dualweatherios.Dual-Weather-iOS";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "Dual-Weather-iOS-Profile";
 				SDKROOT = auto;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx xros xrsimulator";
 				SWIFT_EMIT_LOC_STRINGS = YES;
