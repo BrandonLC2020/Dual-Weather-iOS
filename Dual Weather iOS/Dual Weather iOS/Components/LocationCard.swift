@@ -27,7 +27,7 @@ struct LocationCard: View {
                 .font(.subheadline)
                 .lineLimit(1)
             if let coordinate = coordinate {
-                MapThumbnailView(coordinate: coordinate, size: CGSize(width: 150, height: 150)).padding(.all, 10)
+                MapThumbnailView(coordinate: coordinate, size: CGSize(width: 130, height: 130))
             } else if let errorMessage = errorMessage {
                 Text("Error: \(errorMessage)")
                     .foregroundColor(.red)
@@ -39,7 +39,7 @@ struct LocationCard: View {
             }
         }
         .padding()
-        .frame(maxWidth: maxWidth, maxHeight: maxHeight)
+        .frame(width: maxWidth, height: maxHeight)
         .onAppear {
             if let lat = location.latitude, let lon = location.longitude {
                 coordinate = CLLocationCoordinate2D(latitude: lat, longitude: lon)
