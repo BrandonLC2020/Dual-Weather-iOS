@@ -17,6 +17,12 @@ struct TabUIView: View {
                     Text("Home")
                 }
                 .navigationTitle("Home")
+            SearchView()
+                .tabItem {
+                    Image(systemName: "magnifyingglass")
+                    Text("Search")
+                }
+                .navigationTitle("Search")
             SavedLocationsView()
                 .tabItem {
                     Image(systemName: "bookmark.fill")
