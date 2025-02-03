@@ -13,15 +13,19 @@ struct LocationCard: View {
     @State private var coordinate: CLLocationCoordinate2D? // To store fetched coordinates
     @State private var errorMessage: String? // To handle errors
     
-    let maxHeight: CGFloat = 180
+    let maxHeight: CGFloat = 200
     let maxWidth: CGFloat = 150
 
 
     var body: some View {
         VStack {
-            Text(location.city)
+            Text(location.city + ",")
+                .font(.subheadline)
                 .lineLimit(1)
                 .padding(.top, 10)
+            Text(location.state)
+                .font(.subheadline)
+                .lineLimit(1)
             if let coordinate = coordinate {
                 MapThumbnailView(coordinate: coordinate, size: CGSize(width: 150, height: 150)).padding(.all, 10)
             } else if let errorMessage = errorMessage {
@@ -61,5 +65,5 @@ struct LocationCard: View {
 }
 
 #Preview {
-    LocationCard(location: Location(city: "West Lafayette", state: "IN"))
+    LocationCard(location: Location(city: "West Lafayette", state: "Indiana"))
 }

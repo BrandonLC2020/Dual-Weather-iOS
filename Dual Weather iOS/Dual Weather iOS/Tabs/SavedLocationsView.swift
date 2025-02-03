@@ -31,7 +31,7 @@ struct SavedLocationsView: View {
                         .foregroundColor(.red)
                         .padding()
                 } else {
-                    LazyVGrid(columns: columns, spacing: 10) {
+                    LazyVGrid(columns: columns, spacing: 5) {
                         ForEach(locations, id: \.city) { location in
                             LocationCard(location: location)
                                 .padding()

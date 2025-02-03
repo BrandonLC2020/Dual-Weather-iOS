@@ -7,6 +7,7 @@
 
 import Foundation
 import CoreLocation
+import MapKit
 
 class LocationService {
     static let shared = LocationService() // Singleton instance
@@ -37,4 +38,29 @@ class LocationService {
             completion(.success(location.coordinate))
         }
     }
+    
+   
+
+    /// Fetch multiple cities from OpenStreetMap's Nominatim API
+    func searchLocations(for query: String) async -> [Location] {
+        guard !query.isEmpty else { return [] }
+        
+        let urlString = "https://nominatim.openstreetmap.org/search?format=json&layer=address&q=\(query)"
+        
+        guard let url = URL(string: urlString) else {
+            print("Invalid URL")
+            return []
+        }
+        
+        do {
+            let (data, _) = try await URLSession.shared.data(from: url)
+            let results = try JSONDecoder().decode([Location].self, from: data)
+            
+            return results
+        } catch {
+            print("Error fetching locations: \(error.localizedDescription)")
+            return []
+        }
+    }
+
 }
