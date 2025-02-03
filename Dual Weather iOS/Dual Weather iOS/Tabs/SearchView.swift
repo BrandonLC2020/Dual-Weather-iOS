@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct SearchView: View {
-    @State private var results = [LocationCard]()
+    @State private var results = [Location]()
     @State private var searchText: String = ""
     @State private var isLoading = false
     @FocusState private var isTextFieldFocused: Bool // Focus management for TextField
@@ -22,7 +22,7 @@ struct SearchView: View {
         self.isTextFieldFocused = false // Dismiss keyboard
 
         // Perform search and handle results
-        let results: [LocationCard] = await performSearch()
+        let results: [Location] = await performSearch()
         
         self.results = results // Update results
 
@@ -39,12 +39,12 @@ struct SearchView: View {
         isTextFieldFocused = false // Clear keyboard focus
     }
     
-    func performSearch() async -> [LocationCard] {
+    func performSearch() async -> [Location] {
         self.isLoading = true
         defer { self.isLoading = false }
         
-        return []
-        
+        return await LocationService.shared.searchLocations(for: searchText)
+
     }
     
     var body: some View {
@@ -78,7 +78,11 @@ struct SearchView: View {
                         ProgressView("Searching...").padding()
                     }
                     
-                    //CardList(results: cards)
+                    LazyVStack {
+                        ForEach(results, id: \.self) { result in
+                            SearchCard(location: result)
+                        }
+                    }
                 }
             }
             .onTapGesture { isTextFieldFocused = false }
