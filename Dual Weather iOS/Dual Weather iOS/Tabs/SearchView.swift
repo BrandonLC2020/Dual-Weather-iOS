@@ -52,7 +52,7 @@ struct SearchView: View {
             ScrollView {
                 VStack {
                     HStack {
-                        TextField("Search...", text: $searchText)
+                        TextField("Search for a City", text: $searchText)
                             .focused($isTextFieldFocused)
                             .onChange(of: searchText) {
                                 print("Search text changed to: \(searchText)")

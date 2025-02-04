@@ -122,7 +122,7 @@ struct LocationsGrid: View {
             } else {
                 LazyVGrid(columns: columns, spacing: 30) {
                     ForEach(locations, id: \.city) { location in
-                        NavigationLink(destination: WeatherDetailsView(locationName: location.city)) {
+                        NavigationLink(destination: WeatherDetailsView(locationName: location.locationString())) {
                             
                             LocationCard(location: location)
                                 .overlay(
