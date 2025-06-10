@@ -34,6 +34,7 @@ struct TabUIView: View {
                     Image(systemName: "arrow.left.arrow.right")
                     Text("Convert")
                 }
+                .navigationTitle("Convert")
             SettingsView()
                 .tabItem {
                     Image(systemName: "gearshape.fill")
