@@ -29,6 +29,11 @@ struct TabUIView: View {
                     Text("Saved")
                 }
                 .navigationTitle("Saved")
+            ConvertView()
+                .tabItem {
+                    Image(systemName: "arrow.left.arrow.right")
+                    Text("Convert")
+                }
             SettingsView()
                 .tabItem {
                     Image(systemName: "gearshape.fill")
