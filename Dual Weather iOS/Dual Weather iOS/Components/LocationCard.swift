@@ -19,13 +19,10 @@ struct LocationCard: View {
 
     var body: some View {
         VStack {
-            Text(location.city + ",")
+            Text(location.city)
                 .font(.subheadline)
                 .lineLimit(1)
-                .padding(.top, 10)
-            Text(location.state)
-                .font(.subheadline)
-                .lineLimit(1)
+                .padding([.top, .bottom], 10)
             if let coordinate = coordinate {
                 MapThumbnailView(coordinate: coordinate, size: CGSize(width: 130, height: 130))
             } else if let errorMessage = errorMessage {
