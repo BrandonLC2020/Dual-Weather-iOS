@@ -3,6 +3,10 @@
 ## Overview
 Dual Weather is a simple iOS application built using Swift and WeatherKit. It provides real-time weather updates for your current location, displaying essential weather data in both imperial and metric measurements.
 
+## Demo
+
+You can see screen recordings and screenshots of the app [here](https://brandonlc2020.github.io/Portfolio/project/4).
+
 ## Features
 - Displays temperature in Fahrenheit and Celsius
 - Shows wind speed in mph and km/h
