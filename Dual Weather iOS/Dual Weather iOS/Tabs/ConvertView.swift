@@ -35,7 +35,7 @@ struct ConvertView: View {
                     TextField("Enter temperature", text: $fahrenheitString)
                         .keyboardType(.decimalPad)
                         .focused($focusedField, equals: .fahrenheit)
-                        .onChange(of: fahrenheitString) { newValue in
+                        .onChange(of: fahrenheitString) { _, newValue in
                             // Only perform conversion if this text field is focused
                             guard focusedField == .fahrenheit else { return }
                             
@@ -56,7 +56,7 @@ struct ConvertView: View {
                     TextField("Enter temperature", text: $celsiusString)
                         .keyboardType(.decimalPad)
                         .focused($focusedField, equals: .celsius)
-                        .onChange(of: celsiusString) { newValue in
+                        .onChange(of: celsiusString) { _, newValue in
                             // Only perform conversion if this text field is focused
                             guard focusedField == .celsius else { return }
                             
