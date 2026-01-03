@@ -9,12 +9,15 @@
     {
       "layers" : [
         {
-          "fill" : "automatic",
-          "image-name" : "App Icon-1024.png",
-          "name" : "App Icon-1024",
-          "opacity" : 0.8,
+          "image-name" : "Dual Weather Icon Foreground.png",
+          "name" : "Dual Weather Icon Foreground"
+        },
+        {
+          "image-name" : "Dual Weather Icon Background.png",
+          "name" : "Dual Weather Icon Background",
+          "opacity" : 0.5,
           "position" : {
-            "scale" : 1.1,
+            "scale" : 1,
             "translation-in-points" : [
               0,
               0
